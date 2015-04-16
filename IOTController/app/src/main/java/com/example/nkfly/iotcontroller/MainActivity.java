@@ -130,7 +130,7 @@ public class MainActivity extends Activity
     @Override
     public void onA2DPProxyReceived (BluetoothA2dp proxy) {
         Method connect = getConnectMethod();
-        BluetoothDevice device = findBondedDeviceByName(mAdapter, "HMSoft");
+        BluetoothDevice device = findBondedDeviceByName(mAdapter, "HC-06");
 
 
 //        If either is null, just return. The errors have already been logged
@@ -139,6 +139,7 @@ public class MainActivity extends Activity
             return;
         }
         Log.i(TAG, String.valueOf(device.getBondState()));
+
 
         connect(device, false);
 //
