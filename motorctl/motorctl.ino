@@ -8,8 +8,8 @@
 #define motorLeftPole2 5
 #define motorRightPole1 8
 #define motorRightPole2 9
-#define bluetoothRx 11
-#define bluetoothTx 12
+#define bluetoothRx 12
+#define bluetoothTx 11
  
   int xaxis;
   int yaxis;
@@ -64,6 +64,7 @@ void loop(){
       Serial.print(xaxis);
             Serial.print(',');
       Serial.println(yaxis);
+      
   }
   xaxis = map(xaxis, xctllow, xctlhigh, -255, 255);
   yaxis = map(yaxis, yctllow, yctlhigh, -255, 255);//y前進後退
