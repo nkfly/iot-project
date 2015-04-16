@@ -13,6 +13,8 @@
  
   int xaxis;
   int yaxis;
+  int xval;
+  int yval;
   int xctllow = -90; //看電腦控制的x大小
   int xctlhigh = 90; //看電腦控制的x大小
   int yctllow = -90; //看電腦控制的y大小
@@ -62,33 +64,33 @@ void loop(){
       xaxis = atoi(xx);
       yaxis = atoi(yy);
       Serial.print(xaxis);
-            Serial.print(',');
+      Serial.print(',');
       Serial.println(yaxis);
-      
+      xval = map(xaxis, xctllow, xctlhigh, -255, 255);
+      yval = map(yaxis, yctllow, yctlhigh, -255, 255);//y前進後退
   }
-  xaxis = map(xaxis, xctllow, xctlhigh, -255, 255);
-  yaxis = map(yaxis, yctllow, yctlhigh, -255, 255);//y前進後退
-  vleft = abs(yaxis);
+  
+  vleft = abs(yval);
   vleft = constrain(vleft, 0, 255);
-  vright = abs(yaxis) - abs(xaxis);
+  vright = abs(yval) - abs(xval);
   vright = constrain(vright, 0, 255);
   
-  if(yaxis >= 0){    // turn right
-    if(xaxis >= 0){
+  if(yval >= 0){    // turn right
+    if(xval >= 0){
     motor(motorLeftPole1, motorLeftPole2, motorLeftEnable, 1, vleft);
     motor(motorRightPole1, motorRightPole2, motorRightEnable, 1, vright);
     }
-    else if (xaxis < 0){  // turn left
+    else if (xval < 0){  // turn left
       motor(motorLeftPole1, motorLeftPole2, motorLeftEnable, 1, vright);
       motor(motorRightPole1, motorRightPole2, motorRightEnable, 1, vleft);
     }
   }
-  else if(yaxis < 0){    //stop
-    if(xaxis >= 0){
+  else if(yval < 0){    //backward
+    if(xval >= 0){
     motor(motorLeftPole1, motorLeftPole2, motorLeftEnable, 2, vleft);
     motor(motorRightPole1, motorRightPole2, motorRightEnable, 2, vright);
     }
-    else if(xaxis < 0){
+    else if(xval < 0){
     motor(motorLeftPole1, motorLeftPole2, motorLeftEnable, 2, vright);
     motor(motorRightPole1, motorRightPole2, motorRightEnable, 2, vleft);
     }
