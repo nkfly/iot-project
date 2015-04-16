@@ -139,7 +139,6 @@ public class MainActivity extends Activity
             return;
         }
         Log.i(TAG, String.valueOf(device.getBondState()));
-        device.
 
         connect(device, false);
 //
