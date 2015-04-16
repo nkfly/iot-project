@@ -1,4 +1,4 @@
-#include <TextFinder.h>
+
 #include <SoftwareSerial.h>
 
 // Use a L293D IC to control the 4 wheel
@@ -34,9 +34,36 @@ void setup(){
 void loop(){
  ////////////////////////////////////////////////////////
   if(bluetooth.available()){
-    String order = (String)bluetooth.read();
-    xaxis = getValue(order, ',', 0).toInt();
-    yaxis = getValue(order, ',', 1).toInt();
+    int xOrY = 0;
+    int xIndex = 0;
+    int yIndex = 0;
+    char xx[12];
+    char yy[12];
+    char inin;
+    while (bluetooth.available() && (inin = bluetooth.read()) != '\n'){
+      if (inin == ','){
+       xOrY = 1;
+      }
+      else if (xOrY == 0){
+        xx[xIndex] = inin;
+        xIndex++;
+      }else if (xOrY == 1){
+        yy[yIndex] = inin;
+        yIndex++;
+      }
+    }
+    
+    xx[xIndex] = '\0';
+    yy[yIndex] = '\0';
+    
+//    String order = (String)bluetooth.read();
+//    xaxis = getValue(order, ',', 0).toInt();
+//    yaxis = getValue(order, ',', 1).toInt();
+      xaxis = atoi(xx);
+      yaxis = atoi(yy);
+      Serial.print(xaxis);
+            Serial.print(',');
+      Serial.println(yaxis);
   }
   xaxis = map(xaxis, xctllow, xctlhigh, -255, 255);
   yaxis = map(yaxis, yctllow, yctlhigh, -255, 255);//y前進後退
