@@ -42,7 +42,7 @@ void loop(){
     char xx[12];
     char yy[12];
     char inin;
-    while (bluetooth.available() && (inin = bluetooth.read()) != '\n'){
+    while (bluetooth.available() && (inin = bluetooth.read()) != '\n' && (inin = bluetooth.read()) !='0'){
       if (inin == ','){
        xOrY = 1;
       }
