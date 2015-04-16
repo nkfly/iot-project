@@ -33,9 +33,18 @@ void setup(){
 void loop(){
  ////////////////////////////////////////////////////////
   if(bluetooth.available()){
-    String order = (String)bluetooth.read();
-    xaxis = getValue(order, ',', 0).toInt();
-    yaxis = getValue(order, ',', 1).toInt();
+    char aa[12];
+    for(int i=0; i<=5; i++){ 
+      if(bluetooth.available())
+        String order[i] = (String)bluetooth.read();
+      else
+        
+    Serial.println(order);
+    xaxis = getValue(order, ' ', 0).toInt();
+    yaxis = getValue(order, ' ', 1).toInt();
+    //Serial.print(xaxis);
+    //Serial.print(',');
+    //Serial.println(yaxis);
   }
   xaxis = map(xaxis, xctllow, xctlhigh, -255, 255);
   yaxis = map(yaxis, yctllow, yctlhigh, -255, 255);//y前進後退
@@ -54,7 +63,7 @@ void loop(){
       motor(motorRightPole1, motorRightPole2, motorRightEnable, 1, vleft);
     }
   }
-  else if(yaxis < 0){    //stop
+  else if(yaxis < 0){    //
     if(xaxis >= 0){
     motor(motorLeftPole1, motorLeftPole2, motorLeftEnable, 2, vleft);
     motor(motorRightPole1, motorRightPole2, motorRightEnable, 2, vright);
